@@ -122,5 +122,47 @@ function buildCharts(sample) {
   
   // 3. Use Plotly to plot the data with the layout.
   Plotly.newPlot("bubble", bubbleData, bubbleLayout); 
-});
-}
+
+  // 4. Create the trace for the gauge chart.
+  var wfreq = result.wfreq
+  var gaugeData = [ 
+    { 
+      domain: { x: [0, 1], y: [0, 1] },
+      title: { text: "Belly Button Washing Frequency"},
+      type: "indicator",
+      mode: "gauge+number+delta",
+      delta: {reference: 400},
+      value: wfreq,
+      gauge: {
+        axis: {range : [null, 10], ticks: 10},
+        steps: [
+          {range: [0,2], color: "blue" },
+          {range: [2,4], color: "green" },
+          {range: [4,6], color: "yellow" },
+          {range: [6,8], color: "orange" },
+          {range: [8,10], color: "red" }
+          ],
+        threshold: { 
+          line: {color: "black", width: 3},
+          thickness: 1,
+          value: wfreq
+        }
+      }
+    }
+  ];
+    
+    // 5. Create the layout for the gauge chart.
+    var gaugeLayout = { width: 600 , height: 500 , margin: { t: 0 , b: 0}
+      
+    };
+    
+    // 6. Use Plotly to plot the gauge data and layout.
+    Plotly.newPlot('gauge', gaugeData, gaugeLayout);
+    
+    
+    
+    
+
+  });
+  }
+
